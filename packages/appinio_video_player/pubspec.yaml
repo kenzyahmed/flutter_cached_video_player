@@ -12,7 +12,7 @@ dependencies:
   cached_video_player:
     git:
       url: https://github.com/kenzyahmed/flutter_cached_video_player.git
-      ref: eb0cf28e3cfdcce30c7cc2e3a27cc8e125a623d9
+      ref: v2.0.4-suiiz.1
   flutter:
     sdk: flutter
 
