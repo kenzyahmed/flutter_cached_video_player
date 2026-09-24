@@ -26,3 +26,7 @@ by iOS; callers must be able to re-download videos. The existing 500 MiB limit
 is unchanged. On initialization the plugin deletes only the legacy
 `Documents/KTVHTTPCache` directory on a background queue, once per process.
 User documents and drafts outside that cache directory are preserved.
+
+The `packages/appinio_video_player` package preserves the existing Appinio
+wrapper API while depending on this fork. Consumers can use that Git package
+path instead of overriding its old transitive cache dependency.
