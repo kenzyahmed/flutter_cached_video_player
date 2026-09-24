@@ -6,7 +6,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import <GLKit/GLKit.h>
 #import "messages.h"
-#import <KTVHTTPCache/KTVHTTPCache.h>
+#import "KTVHTTPCache.h"
 
 #if !__has_feature(objc_arc)
 #error Code Requires ARC.
@@ -472,6 +472,20 @@ static inline CGFloat radiansToDegrees(CGFloat radians) {
 - (instancetype)initWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
   self = [super init];
   NSAssert(self, @"super init cannot be nil");
+  // Old releases cached re-downloadable media in Documents. New writes use
+  // Library/Caches, so the legacy directory can be removed off the UI thread.
+  static dispatch_once_t cleanupOnce;
+  dispatch_once(&cleanupOnce, ^{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+      NSURL *documents = [[[NSFileManager defaultManager]
+          URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] firstObject];
+      if (documents != nil) {
+        NSURL *legacyCache = [documents URLByAppendingPathComponent:@"KTVHTTPCache"
+                                                     isDirectory:YES];
+        [[NSFileManager defaultManager] removeItemAtURL:legacyCache error:nil];
+      }
+    });
+  });
   [KTVHTTPCache proxyStart:nil];
   _registry = [registrar textures];
   _messenger = [registrar messenger];

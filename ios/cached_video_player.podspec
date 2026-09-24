@@ -13,12 +13,14 @@ Cached Video Player
   s.author           = { 'Vikram Pratap Singh' => 'vikram@lazyarts.me' }
   s.source           = { :http => 'https://github.com/vikram25897/flutter_cached_video_player' }
   s.documentation_url = 'https://pub.dev/packages/cached_video_player'
-  s.source_files = 'Classes/**/*'
+  s.source_files = 'Classes/**/*', 'Vendor/KTVHTTPCache/Sources/**/*.{h,m}'
+  s.private_header_files = 'Vendor/KTVHTTPCache/Sources/**/*.h'
+  s.preserve_paths = 'Vendor/KTVHTTPCache/LICENSE'
   s.public_header_files = 'Classes/**/*.h'
   s.dependency 'Flutter'
 
-  # KTVHTTPCache
-  s.dependency 'KTVHTTPCache', '~> 2.0.0'
+  # Cache sources are bundled so iOS always uses Library/Caches.
+  s.dependency 'KTVCocoaHTTPServer', '~> 1.0'
   
   s.platform = :ios, '10.0'
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'VALID_ARCHS[sdk=iphonesimulator*]' => 'x86_64' }

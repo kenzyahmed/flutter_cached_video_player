@@ -17,3 +17,12 @@ Follow the Android and iOS configuration steps of the official [video_player](ht
 * [Vikram Pratap Singh](https://github.com/vikram25897)
 * [EnderTan](https://github.com/EnderTan)
 * [Philipp Bauer](https://github.com/ciriousjoker)
+## Suiiz iOS cache storage
+
+This fork bundles the MIT-licensed KTVHTTPCache sources and stores downloadable
+video data in `Library/Caches/KTVHTTPCache`, not `Documents/KTVHTTPCache`.
+No separate local KTVHTTPCache pod override is needed. The cache may be purged
+by iOS; callers must be able to re-download videos. The existing 500 MiB limit
+is unchanged. On initialization the plugin deletes only the legacy
+`Documents/KTVHTTPCache` directory on a background queue, once per process.
+User documents and drafts outside that cache directory are preserved.
