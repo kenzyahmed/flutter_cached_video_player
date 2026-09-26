@@ -82,6 +82,8 @@ public abstract class VideoAsset {
   @NonNull
   public abstract MediaSource.Factory getMediaSourceFactory(@NonNull Context context);
 
+  public void configurePlayer(androidx.media3.exoplayer.ExoPlayer.Builder builder) {}
+
   /** Streaming formats that can be provided to the video player as a hint. */
   enum StreamingFormat {
     /** Default, if the format is either not known or not another valid format. */

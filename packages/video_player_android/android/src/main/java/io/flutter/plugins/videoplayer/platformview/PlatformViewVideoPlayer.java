@@ -62,6 +62,7 @@ public class PlatformViewVideoPlayer extends VideoPlayer {
               new ExoPlayer.Builder(context)
                   .setTrackSelector(trackSelector)
                   .setMediaSourceFactory(asset.getMediaSourceFactory(context));
+          asset.configurePlayer(builder);
           return builder.build();
         });
   }

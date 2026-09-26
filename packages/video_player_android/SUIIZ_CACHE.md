@@ -19,3 +19,7 @@ an Android host. The Jetifier override is needed with this host's older AGP test
 
 Prefetch does not guarantee immediate playback: decoder initialization, uncached
 ranges, metadata at the file tail, network throughput and keyframes still matter.
+
+Opted-in reels use 3–10 seconds of forward buffer, a 500 ms start threshold,
+1000 ms rebuffer threshold, and an 8 MiB allocator target. Other media retains
+upstream defaults. These are buffer goals, not wall-clock startup guarantees.

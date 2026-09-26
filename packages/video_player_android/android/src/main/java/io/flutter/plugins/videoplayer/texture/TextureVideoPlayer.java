@@ -61,6 +61,7 @@ public final class TextureVideoPlayer extends VideoPlayer implements SurfaceProd
               new ExoPlayer.Builder(context)
                   .setTrackSelector(trackSelector)
                   .setMediaSourceFactory(asset.getMediaSourceFactory(context));
+          asset.configurePlayer(builder);
           return builder.build();
         });
   }

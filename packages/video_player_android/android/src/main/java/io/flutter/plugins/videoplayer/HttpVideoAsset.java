@@ -83,6 +83,17 @@ final class HttpVideoAsset extends VideoAsset {
     return new DefaultMediaSourceFactory(context).setDataSourceFactory(dataSourceFactory);
   }
 
+  @Override
+  public void configurePlayer(androidx.media3.exoplayer.ExoPlayer.Builder builder) {
+    if ("1".equals(httpHeaders.get(ReelCache.HEADER))) {
+      builder.setLoadControl(new androidx.media3.exoplayer.DefaultLoadControl.Builder()
+          .setBufferDurationsMs(3000, 10000, 500, 1000)
+          .setTargetBufferBytes(8 * 1024 * 1024)
+          .setPrioritizeTimeOverSizeThresholds(false)
+          .build());
+    }
+  }
+
   // TODO: Migrate to stable API, see https://github.com/flutter/flutter/issues/147039.
   @OptIn(markerClass = UnstableApi.class)
   private static void unstableUpdateDataSourceFactory(
